@@ -6,7 +6,7 @@ Mian Usman Naeem Kakakhel,
 Muhammad Saboor,
 Taha Khurram,
 Balaj Saleem,
-Sayed Abdullah Qutb,
+Sayed Abdullah Qutb
 
 Meeting Times:
 Saturday 17:30 - 19:30,
