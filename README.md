@@ -11,3 +11,31 @@ Sayed Abdullah Qutb
 Meeting Times: 
 Saturday 17:30 - 19:30,
 Wednesday 18:30 - 20:30
+
+
+Game Details:
+
+-> 1 player/plane
+-> 6 enemies
+-> The plane shoots lasers
+-> Plane equipped with a special bomb to clear screen
+-> One of the aliens can pickup humans
+-> If that alien is killed midway to the top, it will drop the human and the player has to catch them
+-> The human will splitty splitty splat splat if not caught
+-> Some enemies will have the ability to fire bullets 
+-> Warp feature on screen which will warp the player to anywhere on the plant
+-> If all humans are abducted, all aliens on screen will become powerfull
+-> Minimap located on top of the screen which will portray enemy locations
+-> 3 lives of the player will be shown
+-> The score is also shown
+-> Fuel bar is shown
+-> Humans are not damaged by aliens, the aliens can only pick them up and move to the top of the screen inorder to get powerfull/upgraded 
+
+Out Additions:
+-> Add a fuel drop to refuel the tank of the player
+-> If plane runs out of fuel it'll crash
+-> After killing enemies the player can receive pickup items such as a shield which will increase the player's defense for some time
+-> An enemy seeker/ heatseeker missile
+-> Upon reaching a certain killstreak, the player will be provided a pickup to fire 2x heatseeker missiles for the cost of 1
+-> The map will not only show enemies but humans aswell
+-> Rocks may pop out of the ground which will impale onscreen humans killing them
