@@ -46,3 +46,4 @@ Wednesday 18:30 - 20:30
 * Items in shop would be of two kinds : Upgrades and Consumables.
 * Upgrades would be permanent and would improve the player's vehicle/plane. For instance, the player may buy a bigger fuel tank so that the plane goes on for longer, or a stroger weapon so that their lasers become stronger.
 * Consumables would be items for one time use, such as a sheild or faster speed and other such features.
+
