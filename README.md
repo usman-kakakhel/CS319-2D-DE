@@ -32,7 +32,7 @@ Wednesday 18:30 - 20:30
 * Humans are not damaged by aliens, the aliens can only pick them up and move to the top of the screen inorder to get powerfull/upgraded 
 
 ### Our Additions:
-* Fuel bar is shown
+* Fuel bar is shown at the top
 * Add a fuel drop to refuel the tank of the player
 * If plane runs out of fuel it'll crash
 * After killing enemies the player can receive pickup items such as a shield which will increase the player's defense for some time
@@ -41,3 +41,9 @@ Wednesday 18:30 - 20:30
 * Upon reaching a certain killstreak, the player will be provided a pickup to fire 2x heatseeker missiles for the cost of 1
 * The map will not only show enemies but humans as well
 * There might be an asteroid shower will impale onscreen humans killing them
+* A currency would be added so that every enemy killed would reward a specific ammount. The player can use this ammount in the future
+* A shop would be added so that the player may buy items.
+* Items in shop would be of two kinds : Upgrades and Consumables.
+* Upgrades would be permanent and would improve the player's vehicle/plane. For instance, the player may buy a bigger fuel tank so that the plane goes on for longer, or a stroger weapon so that their lasers become stronger.
+* Consumables would be items for one time use, such as a sheild or faster speed and other such features.
+
