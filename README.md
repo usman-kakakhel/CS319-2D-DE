@@ -40,4 +40,4 @@ Wednesday 18:30 - 20:30
 * An enemy seeker/ heatseeker missile
 * Upon reaching a certain killstreak, the player will be provided a pickup to fire 2x heatseeker missiles for the cost of 1
 * The map will not only show enemies but humans as well
-* There might be an asteroid shower will impale onscreen humans killing them
+* There might be an asteroid shower will impale onscreen humans killing them.
