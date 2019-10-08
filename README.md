@@ -31,8 +31,8 @@ Wednesday 18:30 - 20:30
 * The score is also shown
 * Humans are not damaged by aliens, the aliens can only pick them up and move to the top of the screen inorder to get powerfull/upgraded 
 
-### Out Additions:
-* Fuel bar is shown
+### Our Additions:
+* Fuel bar is shown at the top
 * Add a fuel drop to refuel the tank of the player
 * If plane runs out of fuel it'll crash
 * After killing enemies the player can receive pickup items such as a shield which will increase the player's defense for some time
