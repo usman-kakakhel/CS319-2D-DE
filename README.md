@@ -39,5 +39,5 @@ Wednesday 18:30 - 20:30
 * The clear screen ability will only work after a cool down time has been spent to replenish the said ability.
 * An enemy seeker/ heatseeker missile
 * Upon reaching a certain killstreak, the player will be provided a pickup to fire 2x heatseeker missiles for the cost of 1
-* The map will not only show enemies but humans as well
+* The map will not only show enemies but humans as well.
 * There might be an asteroid shower will impale onscreen humans killing them.
