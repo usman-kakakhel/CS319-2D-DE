@@ -40,7 +40,7 @@ Wednesday 18:30 - 20:30
 * The map will not only show enemies but humans as well
 * There might be an asteroid shower will impale onscreen humans killing them
 * The score would be adapted to concept of currency.
-* Conins would be awarded for every enemy killed would reward a specific ammount. The player can use this ammount in the future.
+* Coins would be awarded for every enemy killed would reward a specific ammount. The player can use this ammount in the future.
 * A shop would be added so that the player may buy items.
 * These items would be permanent and would improve the player's vehicle/plane. The items include a bigger fuel tank so that the plane goes on for longer time, and a shield.
 * A boss would appear after some score which would have greater health and damage than other enemies.
