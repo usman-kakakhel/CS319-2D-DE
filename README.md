@@ -37,7 +37,7 @@ Wednesday 18:30 - 20:30
 * The clear screen ability will only work after a cool down time has been spent to replenish the said ability.
 * An enemy seeker/ heatseeker missile, this will replenish after sometime.
 * The map will not only show enemies but humans as well.
-* There might be an asteroid shower event which will impale onscreen humans killing them.
+* There might be an asteroid shower event which upon collision will damage the spaceship.
 * Coins would be awarded for every enemy killed, would reward a specific ammount. The player can use this ammount in the shop.
 * A shop would be added so that the player may buy items.
 * These items would be permanent and would improve the player's spaceship. The items include a bigger fuel tank so that the plane goes on for longer time, a shield,and skin color for the spaceship.
