@@ -3,7 +3,7 @@ Remake of the Arcade game Defender for CS 319
 
 For TA(alperin) to edit our analysis report: https://docs.google.com/document/d/1ho6j-uEJV7cxFchB4kYFe-pw97rxO_Uo1KD4Rhj6yz0/edit?usp=sharing
 
-For TA(Barış) to edit our analysis report: https://docs.google.com/document/d/1Z0CqleRtj6VfdDHW8i2vrLQkUTko9vSRyHzvspnowQM/edit?usp=sharing
+For TA(Barış) to edit our design report: https://docs.google.com/document/d/1Z0CqleRtj6VfdDHW8i2vrLQkUTko9vSRyHzvspnowQM/edit?usp=sharing
 
 ### Member Names: 
 Mian Usman Naeem Kakakhel,
