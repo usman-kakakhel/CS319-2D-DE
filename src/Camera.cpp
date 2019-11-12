@@ -17,10 +17,6 @@ void Camera::setPoint(Point myPoint){
 }
 
 
-Point Camera::getRenderPointFor(Point thePoint){
-    thePoint.setX(thePoint.getX() - myPoint.getX());
-    return thePoint;
-}
 
 void Camera::render(SDL_Renderer* gRenderer){
     // Point backGroundRenderPos = getRenderPointFor(backgroundPos);
@@ -31,7 +27,7 @@ void Camera::render(SDL_Renderer* gRenderer){
 
 void Camera::updateCameraPosition(Point shipInitialPoint, Point shipFinalPoint){
     //update the position of the camera with the movement of the ship
-    Point renderFinalPoint = getRenderPointFor(shipFinalPoint);
+    Point renderFinalPoint = getRenderPointFor(shipFinalPoint, myPoint);
     //if the ship is going way outside the camera then move the camera otherwise do not move the camera
     if (renderFinalPoint.getX() < 400 || renderFinalPoint.getX() > 1520)
         myPoint.setX((shipFinalPoint.getX() - shipInitialPoint.getX()) + myPoint.getX());

@@ -9,10 +9,17 @@ DisplayManager::~DisplayManager(){
     clear();
 }
 
-void DisplayManager::render(SDL_Renderer* gRenderer, string path, int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip){
+Point DisplayManager::getRenderPointFor(Point thePoint, Point cameraPoint){
+    thePoint.setX(thePoint.getX() - cameraPoint.getX());
+    return thePoint;
+}
+
+void DisplayManager::render(SDL_Renderer* gRenderer, string path, Point thePoint, Point cameraPoint, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip){
+    Point point = getRenderPointFor(thePoint, cameraPoint);
+
     DisplayManager::gRenderer = gRenderer;
     loadFromFile(path);
-    SDL_Rect renderQuad = { x, y, mWidth, mHeight };
+    SDL_Rect renderQuad = { point.getX(), point.getY(), mWidth, mHeight };
     SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip);
 }
 

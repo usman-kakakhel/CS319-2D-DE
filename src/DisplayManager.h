@@ -5,6 +5,8 @@
 #include <SDL2/SDL_image.h>
 #include <string>
 
+#include "Point.h"
+
 using namespace std;
 
 class DisplayManager{
@@ -12,7 +14,8 @@ class DisplayManager{
         DisplayManager();
         ~DisplayManager();
         bool loadFromFile(string path);
-        void render(SDL_Renderer* gRenderer, string path, int x = 0, int y = 0, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
+        Point getRenderPointFor(Point thePoint, Point cameraPoint);
+        void render(SDL_Renderer* gRenderer, string path, Point thePoint, Point cameraPoint, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
         void clear();
     private:
         SDL_Renderer* gRenderer = NULL;

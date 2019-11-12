@@ -24,7 +24,7 @@ void GameFrame::init(){
 void GameFrame::updateUI(SDL_Renderer* gRenderer){
     //now render the background and spaceship
     camera->render(gRenderer);
-    spaceShip->render(gRenderer, camera);
+    spaceShip->render(gRenderer, camera->getPoint());
 }
 
 void GameFrame::updateSpaceshipPosition(Orientation orientation){

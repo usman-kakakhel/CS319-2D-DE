@@ -21,7 +21,7 @@ class SpaceShip : public DisplayManager{
         void setOrientation(Orientation orientation);
         void updatePosition();
 
-        void render(SDL_Renderer* gRenderer, Camera* camera);
+        void render(SDL_Renderer* gRenderer, Point cameraPoint);
         
     private:
         Point myPoint;

@@ -15,7 +15,6 @@ class Camera : public DisplayManager{
         
         Point getPoint();
         void setPoint(Point myPoint);
-        Point getRenderPointFor(Point thePoint);
         void render(SDL_Renderer* gRenderer);
 
         void updateCameraPosition(Point shipInitialPoint, Point shipFinalPoint);
