@@ -1,6 +1,8 @@
 #ifndef __MYENUMS_H
 #define __MYENUMS_H
 
+
+
 enum Events{
     QUIT_PRESSED = 0,
     UP_PRESSED = 1,

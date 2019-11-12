@@ -2,8 +2,8 @@
 
 
 SpaceShip::SpaceShip(){
-    myPoint.setX(400);
-    myPoint.setY(500);
+    myPoint.setX(SCREEN_WIDTH / 5);
+    myPoint.setY(SCREEN_HEIGHT / 2);
     orientation = RIGHT;
     prevOrientation = RIGHT;
 }
@@ -33,7 +33,7 @@ void SpaceShip::updatePosition(){
     else if (orientation == UP && myPoint.getY() > 130){
         myPoint.setY(myPoint.getY() - speed);
     }
-    else if (orientation == DOWN && myPoint.getY() < 850){
+    else if (orientation == DOWN && myPoint.getY() < SCREEN_HEIGHT - 230){
         myPoint.setY(myPoint.getY() + speed);
     }
     else if (orientation == LEFT){
