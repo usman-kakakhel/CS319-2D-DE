@@ -29,6 +29,6 @@ void Camera::updateCameraPosition(Point shipInitialPoint, Point shipFinalPoint){
     //update the position of the camera with the movement of the ship
     Point renderFinalPoint = getRenderPointFor(shipFinalPoint, myPoint);
     //if the ship is going way outside the camera then move the camera otherwise do not move the camera
-    if (renderFinalPoint.getX() < 400 || renderFinalPoint.getX() > 1520)
+    if (renderFinalPoint.getX() < (SCREEN_WIDTH / 5) || renderFinalPoint.getX() > SCREEN_WIDTH - (SCREEN_WIDTH / 5))
         myPoint.setX((shipFinalPoint.getX() - shipInitialPoint.getX()) + myPoint.getX());
 }
