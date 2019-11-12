@@ -37,6 +37,7 @@ int main( int argc, char* args[] ){
     }
     else{
         //game loop
+        //Running untill quit pressed
         while(!quit){
             
             listener.getEvent(e, keyList, &quit);
