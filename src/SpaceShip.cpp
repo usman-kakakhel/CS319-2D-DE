@@ -60,16 +60,30 @@ void SpaceShip::setOrientation(Orientation orientation){
 
 
 void SpaceShip::render(SDL_Renderer* gRenderer, Point cameraPoint){
-
+    if (fireAnimation < 16)
+        fireAnimation++;
+    else
+        fireAnimation = 0;
+    
     //render the image according to the direction the ship is in
     if (prevOrientation == RIGHT){
         DisplayManager::render(gRenderer, spriteList[(int)orientation], myPoint, cameraPoint, NULL, 90, NULL, SDL_FLIP_NONE);
+        SDL_Rect clip = { (64 * fireAnimation), 0, 64, 128 };
+        Point firePoint = myPoint;
+        firePoint.setX(firePoint.getX() - 65);
+        DisplayManager::render(gRenderer, "../resources/thrust.png", firePoint, cameraPoint, &clip, 90, NULL, SDL_FLIP_HORIZONTAL);
     }
     else if (prevOrientation == LEFT){
-        if (orientation == LEFT)
+        if (orientation == LEFT){
             DisplayManager::render(gRenderer, spriteList[RIGHT], myPoint, cameraPoint, NULL, 270, NULL, SDL_FLIP_HORIZONTAL);
-        else
+        }
+        else{
             DisplayManager::render(gRenderer, spriteList[(int)orientation], myPoint, cameraPoint, NULL, 270, NULL, SDL_FLIP_HORIZONTAL);
+        } 
+        SDL_Rect clip = { (64 * fireAnimation), 0, 64, 128 };
+        Point firePoint = myPoint;
+        firePoint.setX(firePoint.getX() + 130);
+        DisplayManager::render(gRenderer, "../resources/thrust.png", firePoint, cameraPoint, &clip, 270, NULL, SDL_FLIP_HORIZONTAL);  
     }
     //when the render is done, set the orientation to directional rather than tilt
     orientation = prevOrientation;

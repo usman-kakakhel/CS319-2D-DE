@@ -19,9 +19,17 @@ void DisplayManager::render(SDL_Renderer* gRenderer, string path, Point thePoint
 
     DisplayManager::gRenderer = gRenderer;
     loadFromFile(path);
-    SDL_Rect renderQuad = { point.getX(), point.getY(), mWidth, mHeight };
+    SDL_Rect renderQuad;
+    if (clip == NULL){
+        renderQuad = { point.getX(), point.getY(), mWidth, mHeight };
+    }
+    else{
+        renderQuad = { point.getX(), point.getY(), clip->w, clip->h };
+    }
+        
     SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip);
 }
+
 
 bool DisplayManager::loadFromFile(string path){
     //clear the already texture present in the mtexture
