@@ -28,16 +28,26 @@ void SpaceShip::setPoint(Point myPoint){
 void SpaceShip::updatePosition(){
     //update the position of the spaceship in the direction it is according to its speed
     if (orientation == RIGHT){
-        myPoint.setX(myPoint.getX() + speed);
+        if (myPoint.getX() > GAME_WIDTH - (SCREEN_WIDTH / 5)){
+            myPoint.setX(SCREEN_WIDTH / 5);
+        }
+        else{
+            myPoint.setX(myPoint.getX() + speed);
+        }
     }
-    else if (orientation == UP && myPoint.getY() > 130){
+    else if (orientation == UP && myPoint.getY() > (SCREEN_HEIGHT / 8)){
         myPoint.setY(myPoint.getY() - speed);
     }
-    else if (orientation == DOWN && myPoint.getY() < SCREEN_HEIGHT - 230){
+    else if (orientation == DOWN && myPoint.getY() < SCREEN_HEIGHT - (SCREEN_HEIGHT / 4)){
         myPoint.setY(myPoint.getY() + speed);
     }
     else if (orientation == LEFT){
-        myPoint.setX(myPoint.getX() - speed);
+        if (myPoint.getX() < (SCREEN_WIDTH / 5) ){
+            myPoint.setX(GAME_WIDTH - (SCREEN_WIDTH / 5));
+        }
+        else{
+            myPoint.setX(myPoint.getX() - speed);
+        }
     }
 }
 
