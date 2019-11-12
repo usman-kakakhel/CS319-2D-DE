@@ -1,6 +1,13 @@
 #include "GameFrame.h"
+int DisplayManager::SCREEN_WIDTH = 0;
+int DisplayManager::SCREEN_HEIGHT = 0;
+int DisplayManager::GAME_WIDTH = 0;
 
-GameFrame::GameFrame(){
+GameFrame::GameFrame(int SCREEN_WIDTH, int SCREEN_HEIGHT, int GAME_WIDTH){
+    DisplayManager::SCREEN_WIDTH = SCREEN_WIDTH;
+    DisplayManager::SCREEN_HEIGHT = SCREEN_HEIGHT;
+    DisplayManager::GAME_WIDTH = GAME_WIDTH;
+    
     spaceShip = NULL;
     camera = NULL;
     init();

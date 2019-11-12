@@ -17,6 +17,11 @@ class DisplayManager{
         Point getRenderPointFor(Point thePoint, Point cameraPoint);
         void render(SDL_Renderer* gRenderer, string path, Point thePoint, Point cameraPoint, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
         void clear();
+        static int SCREEN_WIDTH;
+        static int SCREEN_HEIGHT;
+        static int GAME_WIDTH;
+
+
     private:
         SDL_Renderer* gRenderer = NULL;
         SDL_Texture* mTexture = NULL;

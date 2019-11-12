@@ -10,8 +10,9 @@
 //if you want to run on windows just remove the SDL/ from the headers
 
 //attributes
-const int SCREEN_WIDTH = 1920;
-const int SCREEN_HEIGHT = 1080;
+int SCREEN_WIDTH = 1920;
+int SCREEN_HEIGHT = 1080;
+int GAME_WIDTH = 5760;
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 SDL_Event e;
@@ -37,6 +38,7 @@ int main( int argc, char* args[] ){
     }
     else{
         //game loop
+        //Running untill quit pressed
         while(!quit){
             
             listener.getEvent(e, keyList, &quit);
@@ -66,6 +68,12 @@ bool init()
     else
     {
         //creating an outer window
+        SDL_DisplayMode DM;
+        SDL_GetCurrentDisplayMode(0, &DM);
+        SCREEN_HEIGHT = DM.h;
+        SCREEN_WIDTH = DM.w;
+        GAME_WIDTH = SCREEN_WIDTH * 3;
+        
         gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
         if( gWindow == NULL )
         {
