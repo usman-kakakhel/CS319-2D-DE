@@ -27,6 +27,7 @@ class SpaceShip : public DisplayManager{
     private:
         Point myPoint;
         int speed = 30;
+        int fireAnimation = 0;
         Orientation orientation;
         Orientation prevOrientation;
         string spriteList[3] = {"../resources/right.png", "../resources/up.png", "../resources/down.png"};
