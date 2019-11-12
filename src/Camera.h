@@ -21,7 +21,8 @@ class Camera : public DisplayManager{
         
     private:
         Point myPoint;
-        Point backgroundPos;
+        Point backgroundPosStart;
+        int trick;
 };
 
 
