@@ -19,9 +19,10 @@ void Camera::setPoint(Point myPoint){
 
 
 void Camera::render(SDL_Renderer* gRenderer){
-    // Point backGroundRenderPos = getRenderPointFor(backgroundPos);
+    // Point backGroundRenderPos = getRenderPointFor(backgroundPos;
     // DisplayManager::render(gRenderer, "../resources/background.jpg", backGroundRenderPos.getX(), backGroundRenderPos.getY());
     //technically rendering the backgroud in the camera so the background does not change even though we are moving constantly
+	//testing
     DisplayManager::render(gRenderer, "../resources/background.jpg", 0, 0);
 }
 
