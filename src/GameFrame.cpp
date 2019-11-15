@@ -10,14 +10,22 @@ GameFrame::GameFrame(int SCREEN_WIDTH, int SCREEN_HEIGHT, int GAME_WIDTH){
     
     spaceShip = NULL;
     camera = NULL;
+    weaponList = NULL;
     init();
 }
 
 GameFrame::~GameFrame(){
-    if (spaceShip == NULL)
+    if (spaceShip != NULL)
         delete spaceShip;
-    if (camera == NULL)
+    if (camera != NULL)
         delete camera;
+    if (weaponList != NULL){
+        for (int i = 0; i < weaponListSize; i++){
+            delete weaponList[i];
+        }
+        delete [] weaponList;
+    }
+        
 }
 
 void GameFrame::init(){
@@ -25,13 +33,31 @@ void GameFrame::init(){
         spaceShip = new SpaceShip();
     if (camera == NULL)
         camera = new Camera();
+
+}
+
+bool GameFrame::isInScreen(Point point){
+    bool check = true;
+    point = getRenderPointFor(point, camera->getPoint());
+    if (point.getX() < 0 || point.getX() > SCREEN_WIDTH)
+        check = false;
+    if (point.getY() < 0 || point.getY() > SCREEN_HEIGHT)
+        check = false;
+    return check;
 }
 
 
 void GameFrame::updateUI(SDL_Renderer* gRenderer){
+    //update all actors before updating the UI
+    updateAllActors();
     //now render the background and spaceship
-    camera->render(gRenderer);
+    camera->render(gRenderer, spaceShip->getHealthStatus(), spaceShip->getFuelStatus(), coins, score, highScore, spaceShip->getMissileCountdown(), spaceShip->getClearScreenCountdown());
     spaceShip->render(gRenderer, camera->getPoint());
+    //render weapons
+    for (int i = 0; i < weaponListSize; i++){
+        if (isInScreen(weaponList[i]->getPosition()))
+            weaponList[i]->render(gRenderer, camera->getPoint());
+    }
 }
 
 void GameFrame::updateSpaceshipPosition(Orientation orientation){
@@ -41,4 +67,23 @@ void GameFrame::updateSpaceshipPosition(Orientation orientation){
     spaceShip->updatePosition();
     Point shipFinalPoint = spaceShip->getPoint();
     camera->updateCameraPosition(shipInitialPoint, shipFinalPoint);
+}
+
+void GameFrame::updateAllActors(){
+    //update weapons
+    for (int i = 0; i < weaponListSize; i++){
+        weaponList[i]->updatePosition();
+    }
+}
+
+void GameFrame::fire(bool* keyList){
+    if (keyList[BULLET_KEY]){
+        spaceShip->fireBullet(weaponList, weaponListSize);
+    }
+    if (keyList[MISSILE_KEY]){
+        
+    }
+    if (keyList[DESTRUCTION_KEY]){
+        
+    }
 }

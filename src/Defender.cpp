@@ -1,7 +1,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <string>
+#include <iostream>
 
 #include "GameFrame.h"
 #include "EventListener.h"
@@ -46,7 +48,7 @@ int main( int argc, char* args[] ){
 
             SDL_RenderClear( gRenderer ); //clearing the renderer for new renders
             //any updating textures to the renderer
-            SDL_SetRenderDrawColor( gRenderer, 0x21, 0xF5, 0x33, 0xFF ); //just checking by turning the renderer color to green.
+            SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF ); //just checking by turning the renderer color to green.
             myFrame.updateUI(gRenderer);
             SDL_RenderPresent( gRenderer );
         }
@@ -98,6 +100,11 @@ bool init()
                 printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
                 success = false;
             }
+
+            if (TTF_Init() < 0){
+                printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+                success = false;
+            }
         }
     }
 
@@ -117,14 +124,8 @@ void handleEvent(GameFrame* myFrame, bool* keyList){
     else if (keyList[RIGHT_PRESSED]){
         myFrame->updateSpaceshipPosition(RIGHT);
     }
-    if (keyList[BULLET_KEY]){
-        
-    }
-    if (keyList[MISSILE_KEY]){
-        
-    }
-    if (keyList[DESTRUCTION_KEY]){
-        
+    if (keyList[BULLET_KEY] || keyList[MISSILE_KEY] || keyList[DESTRUCTION_KEY]){
+        myFrame->fire(keyList);
     }
 }
 
@@ -136,6 +137,7 @@ void close()
     SDL_DestroyWindow( gWindow );
     gWindow = NULL;
 
+    TTF_Quit();
 	IMG_Quit();
     SDL_Quit();
 }
