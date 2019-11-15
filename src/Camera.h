@@ -15,7 +15,7 @@ class Camera : public DisplayManager{
         
         Point getPoint();
         void setPoint(Point myPoint);
-        void render(SDL_Renderer* gRenderer);
+        void render(SDL_Renderer* gRenderer, int health, int fuel, int coin, int score, int highScore, int missileCountdown, int clearScreenCountdown);
 
         void updateCameraPosition(Point shipInitialPoint, Point shipFinalPoint);
         
@@ -23,6 +23,7 @@ class Camera : public DisplayManager{
         Point myPoint;
         Point backgroundPosStart;
         int trick;
+        string spriteList[7] = {"../resources/health.png", "../resources/fuel.png", "../resources/coin.png", "../resources/score.png","../resources/highScore.png", "../resources/missile.png" ,"../resources/massBomb.png"};
 };
 
 

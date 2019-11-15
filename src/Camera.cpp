@@ -19,7 +19,7 @@ void Camera::setPoint(Point myPoint){
 
 
 
-void Camera::render(SDL_Renderer* gRenderer){
+void Camera::render(SDL_Renderer* gRenderer, int health, int fuel, int coin, int score, int highScore, int missileCountdown, int clearScreenCountdown){
     // Point backGroundRenderPos = getRenderPointFor(backgroundPos);
     // DisplayManager::render(gRenderer, "../resources/background.jpg", backGroundRenderPos.getX(), backGroundRenderPos.getY());
     //technically rendering the backgroud in the camera so the background does not change even though we are moving constantly
@@ -43,6 +43,37 @@ void Camera::render(SDL_Renderer* gRenderer){
         trickPoint.setX(trickPoint.getX() + 800);
         DisplayManager::render(gRenderer, "../resources/ground.png", trickPoint, myPoint);
     }
+
+    //print UI
+    Point disp;
+    disp.setY(5);
+    Point spriteDisp;
+    spriteDisp.setY(15);
+    for (int i = 0; i < 7; i++){
+        disp.setX(disp.getX() + 130);
+        // DisplayManager::render(gRenderer, "../resources/base.png", disp, 0);
+        if (i == 6)
+            spriteDisp.setY(0); 
+        spriteDisp.setX(disp.getX() + 30);
+        DisplayManager::render(gRenderer, spriteList[i], spriteDisp, 0);
+    }
+    //rendering texts for stats
+    disp.setY(50);
+    disp.setX(145);
+    // renderText(gRenderer, to_string(health), disp);
+    // disp.setX(disp.getX() + 130);
+    // renderText(gRenderer, to_string(fuel), disp);
+    // disp.setX(disp.getX() + 130);
+    // renderText(gRenderer, to_string(coin), disp);
+    // disp.setX(disp.getX() + 130);
+    // renderText(gRenderer, to_string(score), disp);
+    // disp.setX(disp.getX() + 130);
+    // renderText(gRenderer, to_string(highScore), disp);
+    // disp.setX(disp.getX() + 130);
+    // renderText(gRenderer, to_string(missileCountdown), disp);
+    // disp.setX(disp.getX() + 130);
+    // renderText(gRenderer, to_string(clearScreenCountdown), disp);
+
 }
     
 
