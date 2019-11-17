@@ -1,7 +1,7 @@
 
-OBJS = Defender.cpp DisplayManager.h DisplayManager.cpp GameFrame.h GameFrame.cpp SpaceShip.h SpaceShip.cpp EventListener.h EventListener.cpp MyEnums.h Point.h Point.cpp Camera.h Camera.cpp 
+OBJS = Defender.cpp DisplayManager.h DisplayManager.cpp GameFrame.h GameFrame.cpp SpaceShip.h SpaceShip.cpp EventListener.h EventListener.cpp MyEnums.h Point.h Point.cpp Camera.h Camera.cpp Enemy.h Enemy.cpp
 
-COMOBJS = Defender.cpp DisplayManager.cpp GameFrame.cpp SpaceShip.cpp EventListener.cpp Point.cpp Camera.cpp 
+COMOBJS = Defender.cpp DisplayManager.cpp GameFrame.cpp SpaceShip.cpp EventListener.cpp Point.cpp Camera.cpp Enemy.h Enemy.cpp
 
 CC = g++
 

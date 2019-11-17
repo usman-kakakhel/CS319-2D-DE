@@ -1,5 +1,4 @@
 #include "DisplayManager.h"
-
 DisplayManager::DisplayManager(){
     DisplayManager::mHeight = 0;
     DisplayManager::mWidth = 0;
@@ -29,7 +28,6 @@ void DisplayManager::render(SDL_Renderer* gRenderer, string path, Point thePoint
         
     SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip);
 }
-
 
 bool DisplayManager::loadFromFile(string path){
     //clear the already texture present in the mtexture
