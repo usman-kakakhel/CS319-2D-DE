@@ -10,6 +10,10 @@
 #include "MyEnums.h"
 #include "Camera.h"
 #include "TargetedWeapon.h"
+#include "Human.h"
+#include "Asteroid.h"
+#include "Enemy.h"
+#include "Saucer.h"
 
 
 class GameFrame : public DisplayManager{
@@ -19,13 +23,12 @@ class GameFrame : public DisplayManager{
         void init();
         void updateUI( SDL_Renderer* gRenderer);
         void updateSpaceshipPosition(Orientation orientation);
-        void updateAllActors();
         void fire(bool* keyList);
-
        
     private:
         SpaceShip* spaceShip;
         Camera* camera;
+        Asteroid* asteroid;
         
         int score = 0;
         int highScore = 0;
@@ -33,9 +36,17 @@ class GameFrame : public DisplayManager{
         
         TargetedWeapon** weaponList;
         int weaponListSize = 0;
+        Human* humanList;
+        int humanListSize = 0;
+        Enemy** enemyList;
+        int enemyListSize = 0;
 
         //private methods
+        void updateAllActors();
         bool isInScreen(Point point);
+        void addHumans();
+        void addAsteroids();
+        void addEnemy();
 };
 
 #endif

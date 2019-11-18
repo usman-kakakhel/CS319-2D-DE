@@ -1,8 +1,12 @@
 #include "Camera.h"
 
 Camera::Camera(){
-    backgroundPosStart.setY(SCREEN_HEIGHT  - 130);
-    trick = 0;
+    numOfHills = (GAME_WIDTH / 808) + 1;
+    backgroundPosStart = new Point[numOfHills];
+    for (int i = 0; i < numOfHills; i++){
+        Point a((i * 808), SCREEN_HEIGHT  - 130);
+        backgroundPosStart[i] = a;
+    }
 }
 
 Camera::~Camera(){
@@ -24,25 +28,21 @@ void Camera::render(SDL_Renderer* gRenderer, int health, int fuel, int coin, int
     // DisplayManager::render(gRenderer, "../resources/background.jpg", backGroundRenderPos.getX(), backGroundRenderPos.getY());
     //technically rendering the backgroud in the camera so the background does not change even though we are moving constantly
     DisplayManager::render(gRenderer, "../resources/background.jpg", 0, 0);
+    
     //display the hills
-    if (trick){
-        Point dispPoint = backgroundPosStart;
-        DisplayManager::render(gRenderer, "../resources/ground.png", dispPoint, myPoint);
-        dispPoint.setX(dispPoint.getX() + 800);
-        DisplayManager::render(gRenderer, "../resources/ground.png", dispPoint, myPoint);
-        dispPoint.setX(dispPoint.getX() + 800);
-        DisplayManager::render(gRenderer, "../resources/ground.png", dispPoint, myPoint);
-    }
-    else {
-        Point trickPoint;
-        trickPoint.setX(backgroundPosStart.getX() - 100);
-        trickPoint.setY(SCREEN_HEIGHT  - 130);
-        DisplayManager::render(gRenderer, "../resources/ground.png", trickPoint, myPoint);
-        trickPoint.setX(trickPoint.getX() + 800);
-        DisplayManager::render(gRenderer, "../resources/ground.png", trickPoint, myPoint);
-        trickPoint.setX(trickPoint.getX() + 800);
-        DisplayManager::render(gRenderer, "../resources/ground.png", trickPoint, myPoint);
-    }
+    Point hillPoint(0, backgroundPosStart[0].getY());
+    int  x = (myPoint.getX() / 808) % numOfHills;
+    hillPoint.setX(backgroundPosStart[x].getX());
+    DisplayManager::render(gRenderer, "../resources/ground.png", hillPoint, myPoint);
+    x = ((myPoint.getX() / 808) + 1) % numOfHills;
+    hillPoint.setX(backgroundPosStart[x].getX());
+    DisplayManager::render(gRenderer, "../resources/ground.png", hillPoint, myPoint);
+    x = ((myPoint.getX() / 808) + 2) % numOfHills;
+    hillPoint.setX(backgroundPosStart[x].getX());
+    DisplayManager::render(gRenderer, "../resources/ground.png", hillPoint, myPoint);
+    x = ((myPoint.getX() / 808) + 3) % numOfHills;
+    hillPoint.setX(backgroundPosStart[x].getX());
+    DisplayManager::render(gRenderer, "../resources/ground.png", hillPoint, myPoint);
 
     //print UI
     Point disp;
@@ -60,19 +60,19 @@ void Camera::render(SDL_Renderer* gRenderer, int health, int fuel, int coin, int
     //rendering texts for stats
     disp.setY(50);
     disp.setX(145);
-    // renderText(gRenderer, to_string(health), disp);
-    // disp.setX(disp.getX() + 130);
-    // renderText(gRenderer, to_string(fuel), disp);
-    // disp.setX(disp.getX() + 130);
-    // renderText(gRenderer, to_string(coin), disp);
-    // disp.setX(disp.getX() + 130);
-    // renderText(gRenderer, to_string(score), disp);
-    // disp.setX(disp.getX() + 130);
-    // renderText(gRenderer, to_string(highScore), disp);
-    // disp.setX(disp.getX() + 130);
-    // renderText(gRenderer, to_string(missileCountdown), disp);
-    // disp.setX(disp.getX() + 130);
-    // renderText(gRenderer, to_string(clearScreenCountdown), disp);
+    renderText(gRenderer, to_string(health), disp);
+    disp.setX(disp.getX() + 130);
+    renderText(gRenderer, to_string(fuel), disp);
+    disp.setX(disp.getX() + 130);
+    renderText(gRenderer, to_string(coin), disp);
+    disp.setX(disp.getX() + 130);
+    renderText(gRenderer, to_string(score), disp);
+    disp.setX(disp.getX() + 130);
+    renderText(gRenderer, to_string(highScore), disp);
+    disp.setX(disp.getX() + 130);
+    renderText(gRenderer, to_string(missileCountdown), disp);
+    disp.setX(disp.getX() + 130);
+    renderText(gRenderer, to_string(clearScreenCountdown), disp);
 
 }
     
@@ -84,7 +84,5 @@ void Camera::updateCameraPosition(Point shipInitialPoint, Point shipFinalPoint){
     if (renderFinalPoint.getX() < (SCREEN_WIDTH / 5) || renderFinalPoint.getX() > SCREEN_WIDTH - (SCREEN_WIDTH / 5)){
         myPoint.setX((shipFinalPoint.getX() - shipInitialPoint.getX()) + myPoint.getX());
     } 
-    backgroundPosStart.setX((shipFinalPoint.getX() - shipInitialPoint.getX()) + myPoint.getX());
-    if (trick){trick = 0;}
-    else{trick = 1;}
+
 }

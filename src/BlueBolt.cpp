@@ -9,7 +9,7 @@ BlueBolt::~BlueBolt(){
 }
 
 void BlueBolt::render(SDL_Renderer* gRenderer, Point cameraPoint) {
-        if (animation < 16)
+        if (animation < 15)
                 animation++;
         else
                 animation = 0;

@@ -10,7 +10,7 @@ Asteroid::~Asteroid(){
 
 //update position  method
 void Asteroid::updatePosition(){
-	Point p(this->getPosition().getX(), this->getPosition().getY() + speed);
+	Point p(cos((orientation - 90)*(PI/180))*speed + this->getPosition().getX(), sin((orientation - 90)*(PI/180))*speed + this->getPosition().getY());
 	this->setPosition(p);
 }
 

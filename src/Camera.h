@@ -21,8 +21,8 @@ class Camera : public DisplayManager{
         
     private:
         Point myPoint;
-        Point backgroundPosStart;
-        int trick;
+        Point* backgroundPosStart;
+        int numOfHills;
         string spriteList[7] = {"../resources/health.png", "../resources/fuel.png", "../resources/coin.png", "../resources/score.png","../resources/highScore.png", "../resources/missile.png" ,"../resources/massBomb.png"};
 };
 

@@ -3,6 +3,7 @@
 DisplayManager::DisplayManager(){
     DisplayManager::mHeight = 0;
     DisplayManager::mWidth = 0;
+
 }
 
 DisplayManager::~DisplayManager(){
@@ -54,6 +55,8 @@ void DisplayManager::renderText(SDL_Renderer* gRenderer, string text, Point theP
             SDL_RenderCopy(gRenderer, mTexture, NULL, &Message_rect); 
         }
     }
+    TTF_CloseFont(lazy);
+    lazy = NULL;
 }
 
 bool DisplayManager::loadFromFile(string path){

@@ -7,6 +7,8 @@
 
 #include "TargetedWeapon.h"
 
+#define PI 3.14159265
+
 class Asteroid : public TargetedWeapon{
 	public:
 		Asteroid(Point newPos, int newSpeed, int newDamage, int newOrientation);

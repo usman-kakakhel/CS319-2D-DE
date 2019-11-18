@@ -11,7 +11,7 @@ SpaceShip::SpaceShip(){
 SpaceShip::~SpaceShip(){
 }
 
-Point SpaceShip::getPoint(){
+Point SpaceShip::getPoint() const{
     return myPoint;
 }
 
@@ -43,7 +43,7 @@ void SpaceShip::updatePosition(){
     //update the position of the spaceship in the direction it is according to its speed
     if (orientation == RIGHT){
         if (myPoint.getX() > GAME_WIDTH - (SCREEN_WIDTH / 5)){
-            myPoint.setX(SCREEN_WIDTH / 5);
+            myPoint.setX(SCREEN_WIDTH );
         }
         else{
             myPoint.setX(myPoint.getX() + speed);
@@ -57,7 +57,7 @@ void SpaceShip::updatePosition(){
     }
     else if (orientation == LEFT){
         if (myPoint.getX() < (SCREEN_WIDTH / 5) ){
-            myPoint.setX(GAME_WIDTH - (SCREEN_WIDTH / 5));
+            myPoint.setX(GAME_WIDTH - (SCREEN_WIDTH ));
         }
         else{
             myPoint.setX(myPoint.getX() - speed);

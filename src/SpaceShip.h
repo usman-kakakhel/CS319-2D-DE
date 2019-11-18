@@ -18,7 +18,7 @@ class SpaceShip : public DisplayManager{
     public:
         SpaceShip();
         ~SpaceShip();
-        Point getPoint();
+        Point getPoint() const;
         int getHealthStatus();
         int getFuelStatus();
         int getMissileCountdown();
