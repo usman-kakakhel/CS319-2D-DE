@@ -9,11 +9,11 @@ EventListener::~EventListener(){
 
 }
 
-void EventListener::getEvent(SDL_Event e, bool* keyList, bool* quit){
+void EventListener::getEvent(SDL_Event e, bool* keyList, GameState* state, Point* &clickLocation){
     while( SDL_PollEvent( &e ) != 0 ){
         //Identify this event
         if( e.type == SDL_QUIT ){
-            *quit = true;
+            *state = QUIT;
             return;
         }
         if( e.type == SDL_KEYDOWN && e.key.repeat == 0){
@@ -52,6 +52,15 @@ void EventListener::getEvent(SDL_Event e, bool* keyList, bool* quit){
                 keyList[DESTRUCTION_KEY] = true;
                 return ;
             }
+            else if(e.key.keysym.sym == SDLK_ESCAPE)
+            {
+                if (*state == RESUME)
+                    *state = PAUSE;
+                if (*state == GAME_OVER)
+                    *state = MAIN_MENU;
+                return;
+            }
+            
             else{return;}
                 
         }
@@ -93,6 +102,19 @@ void EventListener::getEvent(SDL_Event e, bool* keyList, bool* quit){
             }
             else{return;}
                 
+        }
+
+         //get mouse evevnts
+        if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT){
+            clickLocation = new Point(e.button.x, e.button.y);
+            return;
+        }
+        else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT){
+            if (clickLocation != NULL){
+                delete clickLocation;
+                clickLocation = NULL;
+                return;
+            }
         }
                  
     }
