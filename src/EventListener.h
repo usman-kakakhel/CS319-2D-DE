@@ -5,16 +5,16 @@
 #include <string>
 
 #include "MyEnums.h"
-
+#include "Point.h"
 
 class EventListener{
     public:
         EventListener();
         ~EventListener();
-        void getEvent(SDL_Event e, bool* keyList, bool *quit);
+        void getEvent(SDL_Event e, bool* keyList, GameState* state, Point* &clickLocation);
         
     private:
-        int a;
+        
         
 };
 
