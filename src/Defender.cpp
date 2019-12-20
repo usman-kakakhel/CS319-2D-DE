@@ -94,6 +94,7 @@ int main( int argc, char* args[] ){
                 SDL_SetRenderDrawColor( DisplayManager::gRenderer, 0, 0, 0, 0 );
                 menuFrame->update(clickLocation, &state);
                 SDL_RenderPresent( DisplayManager::gRenderer ); //shwoing the renderer on screen
+		Mix_Pause(1);
             }
 
             //if the state is shop, render the shop
@@ -103,6 +104,7 @@ int main( int argc, char* args[] ){
                 SDL_SetRenderDrawColor( DisplayManager::gRenderer, 0, 0, 0, 0 );
 		shopFrame->update(clickLocation, &state, boughtHealthItems, boughtHealthItemsSize, boughtFuelItems, boughtFuelItemsSize, coins);
 		SDL_RenderPresent( DisplayManager::gRenderer );
+		Mix_Pause(1);
             }
 
             //if the state is resume, then play the game
@@ -113,6 +115,8 @@ int main( int argc, char* args[] ){
                 myFrame->updateUI(&state, coins);
                 SDL_SemPost(dataLock);
                 SDL_RenderPresent( DisplayManager::gRenderer ); //shwoing the renderer on screen
+		if (state == GAME_OVER) 
+			Mix_Pause(1);
             }
             //tst++;
             //playing menuMusic
