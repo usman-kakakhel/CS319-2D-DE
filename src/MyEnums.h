@@ -1,7 +1,27 @@
 #ifndef __MYENUMS_H
 #define __MYENUMS_H
 
+enum GameState{
+    MAIN_MENU = 0,
+    NEW_GAME = 1,
+    RESUME = 2,
+    PAUSE = 3,
+    SHOP = 4,
+    QUIT = 5,
+    GAME_OVER = 6
+};
 
+enum SoundState{
+    MENU = 0,
+    GAME = 1
+};
+
+enum HumanState{
+    IDLE = 0,
+    PICKED_BY_ENEMY = 1,
+    PICKED_BY_SPACESHIP = 2,
+    FALLING = 3
+};
 
 enum Events{
     QUIT_PRESSED = 0,

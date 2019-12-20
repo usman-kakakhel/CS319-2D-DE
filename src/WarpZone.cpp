@@ -1,20 +1,18 @@
 #include "WarpZone.h"
 #include <cstdlib>
 
-WarpZone::WarpZone() {
-    int x = rand() % 5000;
-    int y = rand() % 700;
-    startPos.setX(x);       // 5000 is the maximum width of the game, I guess
-    startPos.setY(y);        // Height is 768 so warpzone should be between these limits
-
-    // New position for the spaceship to be spawned at
-    int newX = rand() % 500;
-    int newY = rand() % 700;
-    endPos.setX(newX);
-    endPos.setY(newY);
+WarpZone::WarpZone(Point startPoint, Point endPoint ) {
+    startPos = startPoint;
+    endPos = endPoint;
+    //make textures
+    mCTexture = new DisplayManager::CustomTexture();
+    DisplayManager::loadFromFile(warpSprite, mCTexture->mTexture, mCTexture->mWidth, mCTexture->mHeight);
 }
 WarpZone::~WarpZone() {
-
+    if (mCTexture != NULL){
+        delete mCTexture->mTexture;
+        delete mCTexture;
+    }
 }
 Point WarpZone::getStartPos() {
     return startPos;
@@ -31,12 +29,33 @@ void WarpZone::setEndPos(int x, int y) {
     endPos.setY(y);
 }
 
-void WarpZone::render(SDL_Renderer* gRenderer, Point cameraPoint) {
+int WarpZone::getWidth() {
+	return 192;
+}
+
+int WarpZone::getHeight() {
+	return 192;
+}
+
+bool WarpZone::getToBeDestroyed(){
+    return toBeDestroyed;
+}
+void WarpZone::setToBeDestroyed(bool toBeDestroyed){
+    this->toBeDestroyed = toBeDestroyed;
+}
+
+void WarpZone::render( Point cameraPoint) {
+    if (animation < 18)
+            animation++;
+    else
+            animation = 1;
+        
+    SDL_Rect clip = { (192 * (animation % 5)), (192 * (animation / 5)), 192, 192 };
     // Render the starting point of warpzone
-    DisplayManager::render(gRenderer, sprite,
-         startPos, cameraPoint, NULL, 0, NULL, SDL_FLIP_NONE);
+    DisplayManager::render(mCTexture->mTexture, mCTexture->mWidth, mCTexture->mHeight,startPos, cameraPoint, &clip, 0, NULL, SDL_FLIP_NONE);
     
     // Render the ending point of the warpzone
-    DisplayManager::render(gRenderer, sprite,
-         endPos, cameraPoint, NULL, 0, NULL, SDL_FLIP_NONE);
+    DisplayManager::render(mCTexture->mTexture, mCTexture->mWidth, mCTexture->mHeight, endPos, cameraPoint, &clip, 0, NULL, SDL_FLIP_NONE);
 }
+
+
