@@ -13,7 +13,7 @@ class Point{
         void setY(int y);
 
 
-        Point operator= (Point const &myPoint);
+        void operator= (Point const &myPoint);
         
        
     private:

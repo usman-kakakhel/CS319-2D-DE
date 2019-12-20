@@ -26,7 +26,7 @@ void Point::setY(int y){
 }
 
 
-Point Point::operator= (Point const &thePoint){
+void Point::operator= (Point const &thePoint){
     Point::setX(thePoint.getX());
     Point::setY(thePoint.getY());
 }

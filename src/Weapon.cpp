@@ -4,8 +4,7 @@ Weapon::Weapon(){
 //no attributes to initialize
 }
 
-Weapon::Weapon(){
+Weapon::~Weapon(){
 //no memory allocation to delete
 }
 
-}
