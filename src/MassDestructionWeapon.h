@@ -12,20 +12,24 @@
 
 class MassDestructionWeapon : public Weapon{
     public:
-        MassDestructionWeapon(int damageValue, int radiusValue);
+        MassDestructionWeapon(Point blastCenter, int damageValue, int radiusValue);
         ~MassDestructionWeapon();
 	
-	void destroy(Enemy* enemyList, Point blastCenter, int listLength);
+	virtual void destroy(Enemy** &enemyList, int &listLength, Point cameraPoint);
 	//setter methods
 	void setDamage(int damageValue);
 	void setBlastRadius(int radiusValue);
+	void setBlastCenter(Point blastCenter);
 	//getter methods
 	int getDamage();
 	int getBlastRadius();
+	Point getBlastCenter();
 
-    private:
+
+    protected:
         int damage;
-	int blastRadius;
+		int blastRadius;
+		Point blastCenter;
 };
 
 #endif

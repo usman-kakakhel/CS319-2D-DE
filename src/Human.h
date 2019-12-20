@@ -8,26 +8,33 @@
 #include "DisplayManager.h"
 #include "MyEnums.h"
 #include "Point.h"
-#include "Camera.h"
+#include <math.h>
 
-class Human : public DisplayManager {
+class Human{
 public:
-    Human(int x);
+    Human(Point thePoint = {0,0});
     ~Human();
-    // Orientation getOrientation();
-    // void setOrientation(Orientation newOrient);
-    bool getState();
-    void setState(bool newState);
+    HumanState getState();
+    void setState(HumanState newState);
     Point getPosition();
-    void setPosition(int x, int y);
+    void setPosition(Point thePoint);
+    void setToBeDestroyed(bool toBeDestroyed);
+    bool getToBeDestroyed();
+    void updatePosition(Point spaceShipPosition, int spaceShipHeight, Point bugeyePosition, int bugeyeHeight);
+    int getWidth();
+    int getHeight();
 
-    void render(SDL_Renderer* gRenderer, Point cameraPoint);
+    void render( Point cameraPoint);
+
+    void operator=(Human const &myHuman);
 
 private:
     Point position;
-    bool state;
-    // Orientation orientation;
-    string sprite = "../resources/human.png";
+    HumanState state;
+    bool toBeDestroyed = false;
+    //textures and image addresses
+    DisplayManager::CustomTexture* mCTexture = NULL;
+    string humanSprite = "../resources/human.png";
 };
 
 #endif
