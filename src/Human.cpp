@@ -1,36 +1,74 @@
 #include "Human.h"
 
-Human::Human(int x) {
-    position.setX(x);
-    position.setY(550);
-    state = true;
-    // If we are going to have orientation, then we might need another orientation in MyEnums class called humanOrientation.
-    // orientation = UP;
+Human::Human(Point thePoint) {
+    position.setX(thePoint.getX());
+    position.setY(thePoint.getY());
+    state = IDLE;
+
+    mCTexture = new DisplayManager::CustomTexture();
+    DisplayManager::loadFromFile(humanSprite, mCTexture->mTexture, mCTexture->mWidth, mCTexture->mHeight);
 }
 Human::~Human() {
-
+    if (mCTexture != NULL){
+        delete mCTexture->mTexture;
+        delete mCTexture;
+    }
 }
-// Orientation Human::getOrientation() {
-//     return orientation;
-// }
-// void Human::setOrientation(Orientation newOrient) {
-//     orientation = newOrient;
-// }
-bool Human::getState() {
+
+HumanState Human::getState() {
     return state;
 }
-void Human::setState(bool newState) {
+void Human::setState(HumanState newState) {
     state = newState;
 }
+
+void Human::setToBeDestroyed(bool toBeDestroyed) {
+	this->toBeDestroyed = toBeDestroyed;
+}
+
+bool Human::getToBeDestroyed() {
+	return this->toBeDestroyed;
+}
+
 Point Human::getPosition() {
     return position;
 }
-void Human::setPosition(int x, int y) {
-    position.setX(x);
-    position.setY(y);
+void Human::setPosition(Point thePoint) {
+    position.setX(thePoint.getX());
+    position.setY(thePoint.getY());
 }
 
-void Human::render(SDL_Renderer* gRenderer, Point cameraPoint) {
-    DisplayManager::render(gRenderer, sprite,
-         position, cameraPoint, NULL, 0, NULL, SDL_FLIP_NONE);
+void Human::updatePosition(Point spaceShipPosition, int spaceShipHeight, Point bugeyePosition, int bugeyeHeight) {
+	if(this->state == PICKED_BY_ENEMY) {
+		int y = (int)(round(bugeyePosition.getY() + (bugeyeHeight * 0.3)));
+		Point p(bugeyePosition.getX() + mCTexture->mWidth/2, y);
+		this->setPosition(p);
+	}
+	else if(this->state == PICKED_BY_SPACESHIP) {
+		int y = (int)(round(spaceShipPosition.getY() + (spaceShipHeight * 0.30)));
+		Point p(spaceShipPosition.getX()+ mCTexture->mWidth/2, y);
+		this->setPosition(p);
+	}
+	else if(this->state == FALLING) {
+		Point p(this->getPosition().getX(), 3 + this->getPosition().getY());
+        this->setPosition(p);
+	}
+}
+
+int Human::getWidth() {
+	return (int)(mCTexture->mWidth);
+}
+
+int Human::getHeight() {
+        return (int)(mCTexture->mHeight);
+}
+
+void Human::render( Point cameraPoint) {
+    DisplayManager::render(mCTexture->mTexture, mCTexture->mWidth , mCTexture->mHeight , position, cameraPoint, NULL, 0, NULL, SDL_FLIP_NONE);
+}
+
+void Human::operator=(Human const &myHuman){
+    position = myHuman.position;
+    state = myHuman.state;
+    toBeDestroyed = myHuman.toBeDestroyed;
 }
