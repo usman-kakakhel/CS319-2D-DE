@@ -1,5 +1,10 @@
+/*
+Crescent Class
+This class implements the crescent crescent enemy.
+*/
 #include "Crescent.h"
 
+// Constructor which initializes the position, speed and orientation of a crescent
 Crescent::Crescent(Point newPos, int newSpeed, int newOrientation) : Enemy(newPos, newSpeed, newOrientation)
 {
     health = 100;
@@ -10,6 +15,7 @@ Crescent::Crescent(Point newPos, int newSpeed, int newOrientation) : Enemy(newPo
     DisplayManager::loadFromFile(saucerSprite, mCTexture->mTexture, mCTexture->mWidth, mCTexture->mHeight);
 }
 
+// Destructor which deletes all the created textures for the crescent
 Crescent::~Crescent()
 {
     if (mCTexture != NULL)
@@ -53,11 +59,12 @@ void Crescent::updatePosition(Point spaceShipPos, Human* humanList, int size)
     {
         myPoint.setX(myPoint.getX() + (speed * cos(orientation * PI / 180)));
         myPoint.setY(myPoint.getY() + (speed * sin(orientation * PI / 180)));
-
+		// Turn around if reached end of horizontal space
         if (myPoint.getX() <= 20 || myPoint.getX() > DisplayManager::GAME_WIDTH - 128)
         {
             orientation = abs(180 - orientation);
         }
+        //or start circiling
         else if (myPoint.getY() < 100 || myPoint.getY() > DisplayManager::SCREEN_HEIGHT - (DisplayManager::SCREEN_HEIGHT / 5))
         {
             if (myPoint.getY() <= 100)
@@ -70,17 +77,16 @@ void Crescent::updatePosition(Point spaceShipPos, Human* humanList, int size)
             }
             orientation = abs(360 - orientation);
         }
-        //or start circiling
-
-
     }
 }
 
+// Crescent firing targetedWeapon at the spaceship
 void Crescent::fireWeapon(TargetedWeapon **&weaponList, int &size, Point spaceShipPos)
 {
-    Enemy::fireWeapon(weaponList, size, spaceShipPos);
+    Enemy::fireWeapon(weaponList, size, spaceShipPos);		// Call the parent(Enemy) class's fireWeapon method
 }
 
+// Rendering the crescent in the map
 void Crescent::render(Point cameraPoint)
 {
     if (animation < 15)
@@ -93,10 +99,10 @@ void Crescent::render(Point cameraPoint)
     DisplayManager::render(mCTexture->mTexture, mCTexture->mWidth, mCTexture->mHeight, this->myPoint, cameraPoint, &clip, 0, NULL, SDL_FLIP_NONE);
 }
 
+// Getting width and height of the crescent
 int Crescent::getWidth() {
         return 128;
 }
-
 int Crescent::getHeight() {
         return 128;
 }

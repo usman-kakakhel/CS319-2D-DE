@@ -1,3 +1,7 @@
+/*
+Event Listener class header
+This class implements the event listening for the game
+*/
 #ifndef __EVENTLISTENER_H
 #define __EVENTLISTENER_H
 
@@ -8,14 +12,12 @@
 #include "Point.h"
 
 class EventListener{
-    public:
-        EventListener();
-        ~EventListener();
-        void getEvent(SDL_Event e, bool* keyList, GameState* state, Point* &clickLocation);
-        
-    private:
-        
-        
+public:
+    EventListener();
+    ~EventListener();
+    void getEvent(SDL_Event e, bool* keyList, GameState* state, Point* &clickLocation);
+    
+private:
 };
 
 #endif

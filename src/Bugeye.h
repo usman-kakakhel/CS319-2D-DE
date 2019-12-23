@@ -1,9 +1,14 @@
+/*
+Bugeye Class Header
+This class implements the Bugeye enemy. Bugeye is the enemy which picks up the humans from the ground
+*/
 #ifndef __BUGEYE_H
 #define __BUGEYE_H
 
 #include "Enemy.h"
 #include "Human.h"
 
+// Bugeye inherits Enemy, because bugeye is an enemy
 class Bugeye : public Enemy{
     public:
         Bugeye(Point newPos, int newSpeed, int newOrientation);

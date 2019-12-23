@@ -1,7 +1,13 @@
+/*
+Bugeye Class
+This class implements the Bugeye enemy. Bugeye is the enemy which picks up the humans from the ground
+*/
 #include "Bugeye.h"
 
+// Bugeye state should false at first, cause it has not picked up a human yet.
 bool Bugeye::picked = false;
 
+// Constructor for the bugeye requires its position, speed and orientation and initializes it for its parent class too.
 Bugeye::Bugeye(Point newPos, int newSpeed, int newOrientation) : Enemy(newPos, newSpeed, newOrientation){
     health = 100;
     mCTexture = new DisplayManager::CustomTexture();
@@ -24,6 +30,7 @@ Bugeye::~Bugeye()
 //gives the distancce between 2 points
 float Bugeye::calculateDistance(Point a, Point b)
 {
+	// Formulae for calculating distance between two points
     // sqrt ( (b.x - a.x)*(b.x - a.x) + (b.x - a.x)*(b.x - a.x) )
     int x = b.getX() - a.getX();
     int y = b.getY() - a.getY();
@@ -68,13 +75,14 @@ void Bugeye::updatePosition(Point spaceShipPos, Human* humanList, int size)
     //else go get a human
     else
     {
-        //if you dont have a target, which ofcourse you wont have at the start u alien, get a target
+        //if you dont have a target, which ofcourse you wont have at the start, get a target
         if (!hasTarget)
         {
             int indexOfHuman = 0;
             float currentDistance = 0;
             float nearestDistance = calculateDistance(myPoint, humanList[0].getPosition());
-            for (int i = 1; i < size; i++) //for all available humans
+			// Find the closest human and set it as its target
+            for (int i = 1; i < size; i++) 
             {
                 //calculate distance of this human
                 currentDistance = calculateDistance(myPoint, humanList[i].getPosition());
@@ -89,15 +97,16 @@ void Bugeye::updatePosition(Point spaceShipPos, Human* humanList, int size)
                 hasTarget = true;
             }
         }
-        //if u do have the target move to the yaindu using spikeys movement
+        //if u do have the target move to the target using spikeys movement
         else
         {
             int myX = myPoint.getX(); //get your own points
             int myY = myPoint.getY();
-            //if you dont have the human, go to the human!
+            //if you have not picked up the human yet, go to the human!
             if (pickedHuman == NULL)
             {
-                int targetX = target.getX(); //get target points
+				//get target points
+                int targetX = target.getX(); 
                 int targetY = target.getY();
                 //go toward human
                 if (targetX - followAccuracy > myX)
@@ -110,7 +119,7 @@ void Bugeye::updatePosition(Point spaceShipPos, Human* humanList, int size)
                 else if (targetY + followAccuracy < myY)
                     myPoint.setY(myY - speed);
             }
-            //you have the  human,go now!
+            //you have the  human,go to top now!
             else{
                 myPoint.setY(myY - speed);
                 pickedHuman->updatePosition({0,0}, 0 , myPoint, mCTexture->mHeight);
@@ -121,12 +130,14 @@ void Bugeye::updatePosition(Point spaceShipPos, Human* humanList, int size)
     }
 }
 
+// picking up the human
 void Bugeye::pickHuman()
 {
     pick = true;
     picked = true;
 }
 
+// render the bugeye in the cameraview
 void Bugeye::render(Point cameraPoint)
 {
     if (animation < 15)
@@ -138,25 +149,29 @@ void Bugeye::render(Point cameraPoint)
     DisplayManager::render(mCTexture->mTexture, mCTexture->mWidth, mCTexture->mHeight, this->myPoint, cameraPoint, &clip, 0, NULL, SDL_FLIP_NONE);
 }
 
+// FireWeapon method
 void Bugeye::fireWeapon(TargetedWeapon** &weaponList, int &size, Point spaceShipPos){
 
 }
 
+
+// Get the height and width of the bugeye
 int Bugeye::getWidth() {
         return 128;
 }
-
 int Bugeye::getHeight() {
         return 128;
 }
  
-
+// Return the picked human
 Human* Bugeye::getHuman(){
     return pickedHuman;
 }
+// Return whether bugeye has picked or not
 bool Bugeye::getPick(){
     return pick;
 }
+// Set the pickedHuman as the human who was picked up by bugeye
 void Bugeye::setHuman(Human* theHuman){
     pickedHuman = theHuman;
 }
