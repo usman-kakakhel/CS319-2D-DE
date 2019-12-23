@@ -1,3 +1,7 @@
+/*
+Defender Class
+This class is the most important class which has the main game instance in it.
+*/
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
@@ -30,9 +34,7 @@ SDL_sem* dataLock = NULL;
 //sound effects and music
 Mix_Music* menuMusic = NULL; //the music
 Mix_Music* gameMusic = NULL; //the music
-
 SoundState soundState;
-
 
 //variables for main and runGameLoop
 GameFrame* myFrame = NULL;
@@ -49,17 +51,11 @@ Item** boughtFuelItems = NULL;
 int boughtFuelItemsSize = 0;
 int coins = 0;
 
-//just to check fps
-// int tst = 0;
-// int chk = 0;
-
 //methods required
-bool init();
-void close();
-void runGameLoop();
-void timer_start(std::function<void(void)> func, unsigned int interval);
-
-
+bool init();		// Initialize the SDL2 libararies
+void close();		// Close the whole game and the SDL2 libraries
+void runGameLoop();	// Game Loop
+void timer_start(std::function<void(void)> func, unsigned int interval);	// Timer for the game, used later in setting the score
 
 
 int main( int argc, char* args[] ){
@@ -102,7 +98,7 @@ int main( int argc, char* args[] ){
                 //render shop
 		SDL_RenderClear( DisplayManager::gRenderer );
                 SDL_SetRenderDrawColor( DisplayManager::gRenderer, 0, 0, 0, 0 );
-		shopFrame->update(clickLocation, &state, boughtHealthItems, boughtHealthItemsSize, boughtFuelItems, boughtFuelItemsSize, coins);
+		shopFrame->update(clickLocation, &state, boughtHealthItems, boughtHealthItemsSize, boughtFuelItems, boughtFuelItemsSize, 				coins);
 		SDL_RenderPresent( DisplayManager::gRenderer );
 		Mix_Pause(1);
             }
@@ -118,7 +114,6 @@ int main( int argc, char* args[] ){
 		if (state == GAME_OVER) 
 			Mix_Pause(1);
             }
-            //tst++;
             //playing menuMusic
             //If there is no music playing
             if( Mix_PlayingMusic() == 0 )
@@ -144,30 +139,27 @@ int main( int argc, char* args[] ){
                     Mix_HaltMusic();
                     Mix_PlayMusic( menuMusic, -1 );
                     soundState = MENU;
-                    // Mix_PauseMusic();
-                    // Mix_ResumeMusic();
                 }
             }
-            
             auto z = y - std::chrono::steady_clock::now();
             wait = x - z;
         }
-        
     }
-    close();
+    close();		// Close once the gameLoop is done
 	return 0;
 }
 
+// GameLoop method checks the state changes in the game
 void runGameLoop(){
     listener.getEvent(e, keyList, &state, clickLocation);
     //if the state is new game, then remove all prev actors and create them again.
     if (state == NEW_GAME){
         myFrame->destroy();
         myFrame->init();
-	shopFrame->destroy();
-	shopFrame->init();
-	coins = 0;
-        myFrame->updateAllActors(keyList, &state, boughtHealthItems, boughtHealthItemsSize, boughtFuelItems, boughtFuelItemsSize, coins);
+		shopFrame->destroy();
+		shopFrame->init();
+		coins = 0;
+		myFrame->updateAllActors(keyList, &state, boughtHealthItems, boughtHealthItemsSize, boughtFuelItems, boughtFuelItemsSize, coins);
         state = RESUME;
     }
     //if state is resume then update all actors as normal
@@ -177,21 +169,20 @@ void runGameLoop(){
             myFrame->updateAllActors(keyList, &state, boughtHealthItems, boughtHealthItemsSize, boughtFuelItems, boughtFuelItemsSize, coins);
             SDL_SemPost(dataLock);
 
-	    for(int i = 0; i < boughtHealthItemsSize; i++) {
-		if(boughtHealthItems[i] != NULL) {
-			delete boughtHealthItems[i];
-		}
+		    for(int i = 0; i < boughtHealthItemsSize; i++) {
+			if(boughtHealthItems[i] != NULL) {
+				delete boughtHealthItems[i];
+			}
 	    }
 	    delete [] boughtHealthItems;
 	    boughtHealthItems = NULL;
 	    boughtHealthItemsSize = 0;
-
-            for(int i = 0; i < boughtFuelItemsSize; i++) {
-                if(boughtFuelItems[i] != NULL) {
-                        delete boughtFuelItems[i];
-                }
+        for(int i = 0; i < boughtFuelItemsSize; i++) {
+            if(boughtFuelItems[i] != NULL) {
+                    delete boughtFuelItems[i];
             }
-            delete [] boughtFuelItems;
+        }
+        delete [] boughtFuelItems;
 	    boughtFuelItems = NULL;
 	    boughtFuelItemsSize = 0;
         }
@@ -201,19 +192,19 @@ void runGameLoop(){
 void timer_start(std::function<void(void)> func, unsigned int interval)
 {
     std::thread([func, interval]() {
-        while (state != QUIT)
-        {
-            //for fps calculation
-            //chk++;
-            //if (chk >= 31){printf("fps %d\n", tst); tst = 0; chk = 0;}
-            auto x = std::chrono::steady_clock::now() + std::chrono::milliseconds(interval);
-            auto y = std::chrono::steady_clock::now();
-            func();
-            auto z = y - std::chrono::steady_clock::now();
-            auto wait = x - z;
-            std::this_thread::sleep_until(wait);
-        }
-    }).detach();
+    while (state != QUIT)
+    {
+        //for fps calculation
+        //chk++;
+        //if (chk >= 31){printf("fps %d\n", tst); tst = 0; chk = 0;}
+        auto x = std::chrono::steady_clock::now() + std::chrono::milliseconds(interval);
+        auto y = std::chrono::steady_clock::now();
+        func();
+        auto z = y - std::chrono::steady_clock::now();
+        auto wait = x - z;
+        std::this_thread::sleep_until(wait);
+    }
+	}).detach();
 }
 
 bool init()
@@ -234,7 +225,8 @@ bool init()
         DisplayManager::SCREEN_WIDTH = DM.w;
         DisplayManager::GAME_WIDTH = DisplayManager::SCREEN_WIDTH * 3;
         
-        gWindow = SDL_CreateWindow( "DEFENDER", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, DisplayManager::SCREEN_WIDTH, DisplayManager::SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+        gWindow = SDL_CreateWindow( "DEFENDER", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, DisplayManager::SCREEN_WIDTH, 				DisplayManager::SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		// Different checks to make sure the necessary components are initialized for the game
         if( gWindow == NULL )
         {
             printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
@@ -297,15 +289,13 @@ bool init()
             printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
             success = false;
         }
-        
     }
     return success;
 }
 
-
-
 void close()
 {
+	// Delete all the created instances after the game ends
     delete clickLocation;
     delete menuFrame;
     delete myFrame;
@@ -332,7 +322,6 @@ void close()
     
     SDL_DestroyWindow( gWindow );
     gWindow = NULL;
-
 
     TTF_Quit();
 	IMG_Quit();

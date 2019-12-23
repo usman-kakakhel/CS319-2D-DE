@@ -1,5 +1,10 @@
+/*
+DisplayManager Class
+This class implements the displaying of any object which needs to be rendered or shown in the screen
+*/
 #include "DisplayManager.h"
 
+// Default values of the screen will be initialized
 int DisplayManager::SCREEN_WIDTH = 1920;
 int DisplayManager::SCREEN_HEIGHT = 1080;
 int DisplayManager::GAME_WIDTH = 5760;
@@ -7,20 +12,20 @@ int DisplayManager::GAME_WIDTH = 5760;
 SDL_Renderer* DisplayManager::gRenderer = NULL;
 TTF_Font* DisplayManager::lazy = NULL;
 
+// Constructor and Destructor not needed
 DisplayManager::DisplayManager(){
-
 }
-
 DisplayManager::~DisplayManager(){
-    
 }
 
+// Get the rendering point for the given position
 Point DisplayManager::getRenderPointFor(Point thePoint, Point cameraPoint){
     thePoint.setX(thePoint.getX() - cameraPoint.getX());
     return thePoint;
 }
 
-void DisplayManager::render(SDL_Texture* mTexture, int mWidth, int mHeight, Point thePoint, Point cameraPoint, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip){
+// Render the given texture
+void DisplayManager::render(SDL_Texture* mTexture, int mWidth, int mHeight, Point thePoint, Point cameraPoint, SDL_Rect* clip, double angle, 	SDL_Point* center, SDL_RendererFlip flip){
     Point point = getRenderPointFor(thePoint, cameraPoint);
 
     SDL_Rect renderQuad;
@@ -30,7 +35,6 @@ void DisplayManager::render(SDL_Texture* mTexture, int mWidth, int mHeight, Poin
     else{
         renderQuad = { point.getX(), point.getY(), clip->w, clip->h };
     }
-        
     SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip);
 }
 
@@ -42,7 +46,7 @@ void DisplayManager::renderText(string text, Point thePoint){
         if( surfaceMessage == NULL ){
             printf( "Unable to load message %s! SDL_ttl Error: %s\n", text.c_str(), TTF_GetError() );
         }
-        else{
+        else {
             SDL_Texture* mTexture = SDL_CreateTextureFromSurface(gRenderer, surfaceMessage); 
 
             SDL_Rect Message_rect = {thePoint.getX(), thePoint.getY(), surfaceMessage->w, surfaceMessage->h}; 
@@ -54,13 +58,14 @@ void DisplayManager::renderText(string text, Point thePoint){
     }
 }
 
+// Load the sprite from the path and put it in the given texture
 bool DisplayManager::loadFromFile(string path, SDL_Texture* &mTexture, int &mWidth, int &mHeight){
 
     SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
     if( loadedSurface == NULL ){
         printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
     }
-    else{
+    else {
         //color key gets the color in the rgb and sets it to transparent
         SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
         mTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );

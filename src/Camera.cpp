@@ -1,3 +1,7 @@
+/*
+Camera Class
+This class implements the camera class which shows the current view of the screen and follows the spaceship
+*/
 #include "Camera.h"
 
 Camera::Camera(){
@@ -14,17 +18,20 @@ Camera::Camera(){
         mCTextureList[i] = new DisplayManager::CustomTexture();
         DisplayManager::loadFromFile(spriteList[i], mCTextureList[i]->mTexture, mCTextureList[i]->mWidth, mCTextureList[i]->mHeight); 
     }
+	// Create a texture for background, ground, and gameOver scenes
     mCTextureBG = new DisplayManager::CustomTexture();
     DisplayManager::loadFromFile(background, mCTextureBG->mTexture, mCTextureBG->mWidth, mCTextureBG->mHeight);
     mCTextureGround = new DisplayManager::CustomTexture();
     DisplayManager::loadFromFile(ground, mCTextureGround->mTexture, mCTextureGround->mWidth, mCTextureGround->mHeight);
     mCTextureGameOver = new DisplayManager::CustomTexture();
     DisplayManager::loadFromFile(gOver, mCTextureGameOver->mTexture, mCTextureGameOver->mWidth, mCTextureGameOver->mHeight);
-
+	
+	// Create small mapView on top of the screen with the point 'a'
     Point a(1185, 10);
     mapView = new MapView(a);
 }
 
+// Destructor for Camera
 Camera::~Camera(){
     if (mCTextureList != NULL){
         for (int i = 0; i < 7; i++){
@@ -122,63 +129,68 @@ void Camera::render(int health, int fuel, int coin, int score, int missileCountd
     //rendering texts for stats
     disp.setY(50);
 
+	// Health meter status
     int temp = offset(health);
     disp.setX(130 + temp);
     DisplayManager::renderText(to_string(health), disp);
     disp.setX(disp.getX()-temp);
 
+	// Fuel meter status
     temp = offset(fuel);
     disp.setX(disp.getX() + 130 + temp);
     DisplayManager::renderText(to_string(fuel), disp);
     disp.setX(disp.getX()-temp);
 
+	// Number of Coins status
     temp = offset(coin);
     disp.setX(disp.getX() + 130 + temp + 10);
     DisplayManager::renderText(to_string(coin), disp);
     disp.setX(disp.getX()-temp-10);
 
+	// Score status
     temp = offset(score);
     disp.setX(disp.getX() + 130 + temp + 10);
     DisplayManager::renderText(to_string(score), disp);
     disp.setX(disp.getX()-temp - 10);
 
+	// Highscore status
     temp = offset(highScore);
     disp.setX(disp.getX() + 130 + temp);
     DisplayManager::renderText(to_string(highScore), disp);
     disp.setX(disp.getX()-temp);
 
+	// Missile countdown
     temp = offset(missileCountdown);
     disp.setX(disp.getX() + 130 + temp);
     DisplayManager::renderText(to_string(missileCountdown), disp);
     disp.setX(disp.getX()-temp);
 
+	// Nuclear bomb countdown
     temp = offset(clearScreenCountdown);
     disp.setX(disp.getX() + 145 + temp);
     DisplayManager::renderText(to_string(clearScreenCountdown), disp);
     disp.setX(disp.getX()-temp);
 
 }
-    
 
 void Camera::updateCameraPosition(Point shipInitialPoint, Point shipFinalPoint){
     //update the position of the camera with the movement of the ship
     Point renderFinalPoint = DisplayManager::getRenderPointFor(shipFinalPoint, myPoint);
     //if the ship is going way outside the camera then move the camera otherwise do not move the camera
-    if (renderFinalPoint.getX() < (DisplayManager::SCREEN_WIDTH / 5) || renderFinalPoint.getX() > DisplayManager::SCREEN_WIDTH - (DisplayManager::SCREEN_WIDTH / 5)){
+    if (renderFinalPoint.getX() < (DisplayManager::SCREEN_WIDTH / 5) || renderFinalPoint.getX() > DisplayManager::SCREEN_WIDTH - 				(DisplayManager::SCREEN_WIDTH / 5)) {
         myPoint.setX((shipFinalPoint.getX() - shipInitialPoint.getX()) + myPoint.getX());
-    } 
-
+    }
 }
 
+// Update map based on the position of the spaceship
 void Camera::updateMap(SpaceShip* spaceShip, Enemy** enemyList, int enemyListSize, Human* humanList, int humanListSize){
     mapView->render(spaceShip, enemyList, enemyListSize, humanList, humanListSize, myPoint);
 }
 
-//new methods by tk
+//Set and get highscore as the score
 void Camera::setHighScore(int value) {
     highScore = value;
 }
-
 int Camera::getHighScore() {
     return highScore;
 }

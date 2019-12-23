@@ -1,14 +1,18 @@
+/*
+Event Listener class
+This class implements the event listening for the game
+*/
 #include "EventListener.h"
 
-
+// Constructor and Destructor need not to be initialized
 EventListener::EventListener(){
 
 }
-
 EventListener::~EventListener(){
 
 }
 
+// Get the event type based on the location of the mouse press or key press
 void EventListener::getEvent(SDL_Event e, bool* keyList, GameState* state, Point* &clickLocation){
     while( SDL_PollEvent( &e ) != 0 ){
         //Identify this event
@@ -100,11 +104,10 @@ void EventListener::getEvent(SDL_Event e, bool* keyList, GameState* state, Point
                 keyList[DESTRUCTION_KEY] = false;
                 return ;
             }
-            else{return;}
-                
+            else{return;}   
         }
 
-         //get mouse evevnts
+		//get mouse evevnts
         if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT){
             clickLocation = new Point(e.button.x, e.button.y);
             return;
@@ -115,8 +118,6 @@ void EventListener::getEvent(SDL_Event e, bool* keyList, GameState* state, Point
                 clickLocation = NULL;
                 return;
             }
-        }
-                 
+        }            
     }
-
 }
