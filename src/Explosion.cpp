@@ -1,5 +1,10 @@
+/*
+Explosion class
+This class implements the explosion event when the enemies are killed/shot by the spaceship
+*/
 #include "Explosion.h"
 
+// Constructor which creates an instance of explosion at the point given(enemy point)
 Explosion::Explosion(Point thePoint){
     pos = thePoint;
     //make textures
@@ -45,6 +50,7 @@ void Explosion::setToBeDestroyed(bool toBeDestroyed){
     this->toBeDestroyed = toBeDestroyed;
 }
 
+// Render the explosion in the given cameraPoint
 void Explosion::render( Point cameraPoint){
     if (animation < 40)
         animation++;
@@ -56,6 +62,7 @@ void Explosion::render( Point cameraPoint){
     DisplayManager::render(mCTexture->mTexture, mCTexture->mWidth, mCTexture->mHeight, pos, cameraPoint, &clip, 0, NULL, SDL_FLIP_HORIZONTAL);
 }
 
+// Assignement operator override
 void Explosion::operator=(Explosion const &theExplosion){
     animation = theExplosion.animation;
     pos = theExplosion.pos;

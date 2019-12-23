@@ -1,5 +1,10 @@
+/*
+DataManager Class
+This class is used to save the highscore of the game.
+*/
 #include "DataManager.h"
 
+// Method to save highScore
 void DataManager::saveHighScore(int highScore) {
 	#ifdef __linux__
 	std::string homedir;
@@ -44,6 +49,7 @@ void DataManager::saveHighScore(int highScore) {
 	#endif
 }
 
+// Method to load the highScore from the saved path
 int DataManager::loadHighScore() {
 	#ifdef __linux__
 	std::string homedir;
